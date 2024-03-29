@@ -1,0 +1,136 @@
+
+body {
+  background: url('background_3.png');
+  background-position: right;
+  font-family: "Futura", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.menu {
+  background-color: #00B3E9;
+  color: #FEE350;
+  width: 100%;
+  text-align: left;
+}
+.home-link {
+  cursor: pointer;
+  letter-spacing: .07rem;
+}
+.menu-content {
+  display: none;
+  text-align: center;
+  padding-bottom: 2px;
+  padding-top: -2px;
+  padding-left: 10px;
+  padding-right: 7px;
+  border-top: 5px solid #cd501a;
+  border-bottom-left-radius: 20px;
+  background: #00B3E9;
+  color: #FEE350;
+  z-index: 101;
+}
+.footer a:active {
+  color:#00B3E9;
+}
+.menu-icon {
+  padding: 5px;
+  font-size: 2rem;
+  color:#cd501a;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: -9px;
+  width: 10%;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  width: 50%;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+.card {
+  background-color: #00B3E9;
+  padding: 20px;
+  padding-bottom: 0;
+  color: #f4f4f4;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.card h2 {
+  margin: 0;
+}
+.about-card {
+  background-color: #00B3E9;
+  padding: 20px;
+  padding-bottom: 0;
+  color: #f4f4f4;
+  border-radius: 50px;
+  border-top-right-radius: 0px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.about-card h2 {
+  margin: 0;
+}
+.tagline {
+  margin-top: 5px; 
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  z-index: 100;
+}
+a {
+  color: #FEE350;
+  text-decoration: none;
+  font-weight: bold;
+}
+a:hover {
+  color: #cd501a;
+}
+a:active {
+  color: #333
+}
+* {box-sizing: border-box;}
+
+button {
+  background-color: #00B3E9;
+  color: #FEE350;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Futura", Arial, sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .07rem;
+  transition: background-color 0.3s, color 0.3s;
+  align-self: center;
+}
+
+button:hover {
+  background-color: #FEE350;
+  color: #00B3E9;
+}
+
+button:active {
+  background-color: #cd501a;
+  color: white;
+}

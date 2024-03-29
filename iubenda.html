@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max</title>
+<link rel="icon" type="image/x-icon" href="/images/favicon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+img {
+  max-width: 15%;
+  border-radius: 3%;
+  border: 2px solid #FEE350;
+  cursor: pointer;
+}
+img.zoomed {
+  transform: scale(5.5);
+  border: 2px solid #cd501a;
+  box-shadow: #333;
+  position: relative;
+}
+img.small-zoomed {
+  transform: scale(2.5);
+  border: 2px solid #cd501a;
+  box-shadow: #333;
+  position: relative;
+}
+</style>
+</head>
+
+<body>
+  <div class="menu">
+    <div style= "font-size:3rem; margin-bottom: -7%; margin-top:-3%; flex-grow: 1; text-align: center;">
+      <p> <span class="home-link" id="home-link" onclick="goHome()">Max</span> <span class="home-link" onclick="goHome()">Searcy</span></p>
+    </div>
+  
+    <span class="menu-icon" onclick="toggleMenu()">v</span></div>
+    <div class="menu-content" id="menuContent">
+      <a href="about.html">Who's that? <br> </a>
+      <a href="kitties.html">Pics of Cats</a>
+    </div>
+</div>
+<div class="container">
+
+  <p style="text-align: left; text-shadow: 0 1px 1px #ffff ;"><b>At iubenda, I wrote or reviewed a big chunk of the English language copy that went out the door.</b></p>
+  
+  <div class="card">
+    <h2>Email marketing</h2>
+    <p class="tagline">I rewrote whole swaths of marketing emails to increase conversions by 9%.</p> 
+    <div style="align-items:center; align-self: center;">
+      <img src="images/key-email.png"> <img src="images/dog-email.png"> <img src="images/cookie-email.png"> <img src="images/change-email.png"> <img src="images/logo-hate-email.png"> <img src="images/police-email.png"> 
+       
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Client acquisition</h2>
+    <p class="tagline">Organic Annual Recurring Revenue improved while I was writing articles like these.</p> 
+    <div style="display: flex; justify-content: space-evenly;">
+    <img src="images/twitter-article.png" id="twitter-ai"> <img src="images/tiktok-fine.png" id="tiktok-fine">
+  </div>
+  </div>
+  <script src="scripts.js">
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {  
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', function() {
+        if(this.id.includes('twitter-ai')) {
+          window.location.href = 'https://www.iubenda.com/en/help/136864-twitter-customers-data-on-the-menu-for-xai-models';
+        }
+        else if(this.id.includes('tiktok-fine')) {
+          window.location.href = 'https://www.iubenda.com/en/help/137521-irish-regulator-slaps-368m-fine-on-tiktok';
+        }
+        else {
+        this.classList.toggle('zoomed');
+      }});
+    });
+  });
+  </script>
+
+  </div>
+  <span></span>
+  <div class="footer" id="footer">
+    <p> Hire me to do something cool for you! &NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace; <a href="mailto:mxsearcy@gmail.com?subject=Job%20Proposal" target="_blank" rel="noopener noreferrer"> mxsearcy@gmail.com</a></p>
+    </div>
