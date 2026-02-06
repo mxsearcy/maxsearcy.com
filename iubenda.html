@@ -1,86 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Max</title>
-<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-<link rel="stylesheet" href="style.css">
-<style>
-img {
-  max-width: 15%;
-  border-radius: 3%;
-  border: 2px solid #FEE350;
-  cursor: pointer;
-}
-img.zoomed {
-  transform: scale(5.5);
-  border: 2px solid #cd501a;
-  box-shadow: #333;
-  position: relative;
-}
-img.small-zoomed {
-  transform: scale(2.5);
-  border: 2px solid #cd501a;
-  box-shadow: #333;
-  position: relative;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iubenda — Max Searcy</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #F8F6F1;
+            --charcoal: #1A1A1A;
+            --slate: #4A4A4A;
+            --accent: #CD501A;
+            --divider: #E5E1D8;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 6rem 3rem 4rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .page-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--slate);
+            font-weight: 300;
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        /* Content */
+        .content-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 3rem;
+        }
+
+        .work-block {
+            margin-bottom: 6rem;
+            padding-bottom: 6rem;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .work-block:last-child {
+            border-bottom: none;
+        }
+
+        .work-block-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .work-block-description {
+            font-size: 1rem;
+            color: var(--slate);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .work-image {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid var(--divider);
+        }
+
+        .work-image:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .work-image.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 2000;
+            border: 2px solid var(--accent);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            cursor: zoom-out;
+        }
+
+        .image-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1999;
+            cursor: pointer;
+        }
+
+        .image-overlay.active {
+            display: block;
+        }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .article-card {
+            border: 1px solid var(--divider);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .article-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .article-caption {
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--slate);
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 4rem 3rem;
+            margin-top: 8rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-cta {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .footer-email {
+            font-size: 1.1rem;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            .page-title {
+                font-size: 3rem;
+            }
+
+            .work-block-title {
+                font-size: 2rem;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem 2rem;
+            }
+
+            .page-header {
+                padding: 4rem 2rem 3rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .content-section {
+                padding: 3rem 2rem;
+            }
+
+            .image-grid,
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-cta {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="menu">
-    <div style= "font-size:3rem; margin-bottom: -7%; margin-top:-3%; flex-grow: 1; text-align: center;">
-      <p> <span class="home-link" id="home-link" onclick="goHome()">Max</span> <span class="home-link" onclick="goHome()">Searcy</span></p>
-    </div>
-  
-    <span class="menu-icon" onclick="toggleMenu()">v</span></div>
-    <div class="menu-content" id="menuContent">
-      <a href="about.html">Who's that? <br> </a>
-      <a href="kitties.html">Pics of Cats</a>
-    </div>
-</div>
-<div class="container">
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="logo">MAX SEARCY</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:mxsearcy@gmail.com">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <p style="text-align: left; text-shadow: 0 1px 1px #ffff ;"><b>At iubenda, I wrote or reviewed a big chunk of the English language copy that went out the door.</b></p>
-  
-  <div class="card">
-    <h2>Email marketing</h2>
-    <p class="tagline">I rewrote whole swaths of marketing emails to increase conversions by 9%.</p> 
-    <div style="align-items:center; align-self: center;">
-      <img src="images/key-email.png"> <img src="images/dog-email.png"> <img src="images/cookie-email.png"> <img src="images/change-email.png"> <img src="images/logo-hate-email.png"> <img src="images/police-email.png"> 
-       
-    </div>
-  </div>
+    <header class="page-header">
+        <h1 class="page-title">iubenda</h1>
+        <p class="page-subtitle">At iubenda, I wrote or reviewed a big chunk of the English language copy that went out the door.</p>
+    </header>
 
-  <div class="card">
-    <h2>Client acquisition</h2>
-    <p class="tagline">Organic Annual Recurring Revenue improved while I was writing articles like these.</p> 
-    <div style="display: flex; justify-content: space-evenly;">
-    <img src="images/twitter-article.png" id="twitter-ai"> <img src="images/tiktok-fine.png" id="tiktok-fine">
-  </div>
-  </div>
-  <script src="scripts.js">
-    </script>
+    <main class="content-section">
+        <section class="work-block">
+            <h2 class="work-block-title">Email Marketing</h2>
+            <p class="work-block-description">I rewrote whole swaths of marketing emails to increase conversions by 9%.</p>
+            <div class="image-grid">
+                <img src="images/key-email.png" alt="Email example" class="work-image">
+                <img src="images/dog-email.png" alt="Email example" class="work-image">
+                <img src="images/cookie-email.png" alt="Email example" class="work-image">
+                <img src="images/change-email.png" alt="Email example" class="work-image">
+                <img src="images/logo-hate-email.png" alt="Email example" class="work-image">
+                <img src="images/police-email.png" alt="Email example" class="work-image">
+            </div>
+        </section>
+
+        <section class="work-block">
+            <h2 class="work-block-title">Client Acquisition</h2>
+            <p class="work-block-description">Organic Annual Recurring Revenue improved while I was writing articles like these.</p>
+            <div class="article-grid">
+                <div class="article-card" onclick="window.location.href='https://www.iubenda.com/en/help/136864-twitter-customers-data-on-the-menu-for-xai-models'">
+                    <img src="images/twitter-article.png" alt="Twitter AI article" class="article-image">
+                    <p class="article-caption">Twitter customers' data on the menu for xAI models</p>
+                </div>
+                <div class="article-card" onclick="window.location.href='https://www.iubenda.com/en/help/137521-irish-regulator-slaps-368m-fine-on-tiktok'">
+                    <img src="images/tiktok-fine.png" alt="TikTok fine article" class="article-image">
+                    <p class="article-caption">Irish regulator slaps €368M fine on TikTok</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-cta">Hire me to do something cool for you</div>
+            <a href="mailto:mxsearcy@gmail.com" class="footer-email">mxsearcy@gmail.com</a>
+        </div>
+    </footer>
+
+    <div class="image-overlay" onclick="closeZoom()"></div>
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {  
-    document.querySelectorAll('img').forEach(img => {
-      img.addEventListener('click', function() {
-        if(this.id.includes('twitter-ai')) {
-          window.location.href = 'https://www.iubenda.com/en/help/136864-twitter-customers-data-on-the-menu-for-xai-models';
-        }
-        else if(this.id.includes('tiktok-fine')) {
-          window.location.href = 'https://www.iubenda.com/en/help/137521-irish-regulator-slaps-368m-fine-on-tiktok';
-        }
-        else {
-        this.classList.toggle('zoomed');
-      }});
-    });
-  });
-  </script>
+        // Image zoom functionality
+        document.querySelectorAll('.work-image').forEach(img => {
+            img.addEventListener('click', function() {
+                const overlay = document.querySelector('.image-overlay');
+                
+                if (this.classList.contains('zoomed')) {
+                    this.classList.remove('zoomed');
+                    overlay.classList.remove('active');
+                } else {
+                    // Remove zoom from any other images
+                    document.querySelectorAll('.work-image.zoomed').forEach(zoomedImg => {
+                        zoomedImg.classList.remove('zoomed');
+                    });
+                    
+                    this.classList.add('zoomed');
+                    overlay.classList.add('active');
+                }
+            });
+        });
 
-  </div>
-  <span></span>
-  <div class="footer" id="footer">
-    <p> Hire me to do something cool for you! &NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace; <a href="mailto:mxsearcy@gmail.com?subject=Job%20Proposal" target="_blank" rel="noopener noreferrer"> mxsearcy@gmail.com</a></p>
-    </div>
+        function closeZoom() {
+            document.querySelectorAll('.work-image.zoomed').forEach(img => {
+                img.classList.remove('zoomed');
+            });
+            document.querySelector('.image-overlay').classList.remove('active');
+        }
+
+        // Close zoom on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeZoom();
+            }
+        });
+    </script>
+</body>
+</html>

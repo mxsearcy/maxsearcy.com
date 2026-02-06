@@ -1,82 +1,568 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Max</title>
-<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Searcy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #F8F6F1;
+            --charcoal: #1A1A1A;
+            --slate: #4A4A4A;
+            --accent: #CD501A;
+            --divider: #E5E1D8;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: 80px;
+            height: 85vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-left {
+            background: var(--charcoal);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            color: var(--cream);
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(248, 246, 241, 0.6);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.6s forwards;
+        }
+
+        .hero-right {
+            background: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-tagline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--cream);
+            text-align: center;
+            line-height: 1.4;
+            padding: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+        }
+
+        .hero-tagline del {
+            opacity: 0.5;
+        }
+
+        /* Work Section */
+        .work-section {
+            max-width: 1400px;
+            margin: 8rem auto;
+            padding: 0 3rem;
+        }
+
+        .section-header {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--slate);
+            margin-bottom: 4rem;
+            font-weight: 500;
+        }
+
+        .work-grid {
+            display: grid;
+            gap: 6rem;
+        }
+
+        .work-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            border-bottom: 1px solid var(--divider);
+            padding-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .work-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .work-meta {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .work-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .work-role {
+            font-size: 0.9rem;
+            color: var(--slate);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .work-metrics {
+            font-size: 0.85rem;
+            color: var(--slate);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .work-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .work-reviews {
+            background: white;
+            padding: 2rem;
+            border-left: 2px solid var(--accent);
+        }
+
+        .review {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .review:last-child {
+            margin-bottom: 0;
+        }
+
+        .reviewer-name {
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .reviewer-title {
+            font-size: 0.75rem;
+            color: var(--slate);
+            font-style: italic;
+        }
+
+        .work-link {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .work-link:hover {
+            background: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 4rem 3rem;
+            margin-top: 8rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-cta {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .footer-email {
+            font-size: 1.1rem;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: var(--accent);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .hero-left,
+            .hero-right {
+                min-height: 50vh;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .work-item {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .work-meta {
+                position: relative;
+                top: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .nav-content {
+                padding: 1.5rem 2rem;
+            }
+
+            .work-section {
+                padding: 0 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .hero-left {
+                padding: 3rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.8rem;
+            }
+
+            .work-title {
+                font-size: 2rem;
+            }
+
+            .footer-cta {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="menu">
-    <div style= "font-size:3rem; margin-bottom: -7%; margin-top:-3%; flex-grow: 1; text-align: center;">
-      <p> <span class="home-link" id="home-link" onclick="goHome()">Max</span> <span class="home-link" onclick="goHome()">Searcy</span></p>
-    </div>
-  
-    <span class="menu-icon" onclick="toggleMenu()">v</span></div>
-    <div class="menu-content" id="menuContent">
-      <a href="about.html">Who's that? <br> </a>
-      <a href="kitties.html">Pics of Cats</a>
-    </div>
-</div>
-<div class="container">
-  <p style="text-align: center; text-shadow: 0 1px 1px #ffff ;"><b>Some work I've done and how they liked it.</b></p>
-  
-  <div class="card" id="iubendaCard">
-    <h2>iubenda SRL</h2>
-    <p class="tagline">Marketing copy for an interntational scale-up with 100k+ clients.</p> 
-    <p> <b>Key metrics:</b> email conversion +9%, organic ARR +6.8%, avg. ad impressions +34%, coworkers who thought I was a 'cool dude' +100% </p>
-     <span style='cursor:pointer;' onclick="iubendaReview()"><a>reviews</a><br></span>
-      <a href="iubenda.html">sample work</a>
-  </div>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">MAX SEARCY</div>
+            <ul class="nav-links">
+                <li><a href="#work">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:mxsearcy@gmail.com">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <div class="card" id="iubendaReviewCard" style="display:none;">
-    <div style="display: flex; justify-content: space-between;"><h2>Coworker Reviews</h2><img onclick="iubendaReview()" src="images/flip-arrow.png" style="cursor:pointer; display:inline; width:7%"></div>
-    <p style="margin-top:-8px;">'Your work is always impeccable.' -<b>Alice P.</b><span style="font-size: .65rem;">&nbsp;Content Marketer<br></span>
-    'You rock... I really love your work.' -<b>Beatrice C.</b><span style="font-size: .65rem;">&nbsp;Head of Marketing Operations<br></span>
-    'Made everything easier.' -<b>Andrea O.</b><span style="font-size: .65rem;">&nbsp;Marketing Coordinator</span></p>
-  </div>
+    <section class="hero">
+        <div class="hero-left">
+            <h1 class="hero-title">Some work I've done<br>and how they<br>liked it</h1>
+            <p class="hero-subtitle">Writer · Designer · Problem Solver</p>
+        </div>
+        <div class="hero-right">
+            <div class="hero-tagline">If it ain't broke,<br><del>don't fix it</del><br>let's break it.</div>
+        </div>
+    </section>
 
-  <div class="card" id="heraldCard">
-    <h2>The Herald</h2>
-    <p class="tagline">Content and ad sales for a weekly paper with moderate circulation.</p>
-    <p><b>Key metrics:</b> 280 news stories, 30 columns, hundreds of page layouts, thousands of photos, photographed one building burning to the ground</b> </p>
-    <span style='cursor:pointer;' onclick="heraldReview()"><a>reviews</a><br></span>
-      <a href="herald.html">sample work</a>
-  </div>
+    <section id="work" class="work-section">
+        <h2 class="section-header">Selected Work</h2>
+        
+        <div class="work-grid">
+            <!-- iubenda -->
+            <article class="work-item">
+                <div class="work-meta">
+                    <h3 class="work-title">iubenda</h3>
+                    <p class="work-role">Marketing copy for an international scale-up with 100k+ clients</p>
+                    <div class="work-metrics">
+                        <p>Email conversion +9%</p>
+                        <p>Organic ARR +6.8%</p>
+                        <p>Avg ad impressions +34%</p>
+                        <p>Coworkers who thought I was a 'cool dude' +100%</p>
+                    </div>
+                </div>
+                <div class="work-content">
+                    <div class="work-reviews">
+                        <div class="review">
+                            "Your work is always impeccable."<br>
+                            <span class="reviewer-name">Alice P.</span><br>
+                            <span class="reviewer-title">Content Marketer</span>
+                        </div>
+                        <div class="review">
+                            "You rock... I really love your work."<br>
+                            <span class="reviewer-name">Beatrice C.</span><br>
+                            <span class="reviewer-title">Head of Marketing Operations</span>
+                        </div>
+                        <div class="review">
+                            "Made everything easier."<br>
+                            <span class="reviewer-name">Andrea O.</span><br>
+                            <span class="reviewer-title">Marketing Coordinator</span>
+                        </div>
+                    </div>
+                    <a href="iubenda.html" class="work-link">View Work</a>
+                </div>
+            </article>
 
-  <div class="card" id="heraldReviewCard" style="display:none;">
-    <div style="display: flex; justify-content: space-between;"><h2>Coworker Reviews</h2><img onclick="heraldReview()" src="images/flip-arrow.png" style="cursor:pointer; display:inline; width:7%"></div>
-    <p style="margin-top:-8px;">'Max is the smartest guy I've ever met.' -<b>Darrik G.</b><span style="font-size: .65rem;">&nbsp;Sports Reporter<br></span>
-    'Great at seeing the big picture and hitting deadlines.' -<b>Jared H.</b><span style="font-size: .65rem;">&nbsp;Editor<br></span>
-    'A pleasure to work with.' -<b>Margaret C.</b><span style="font-size: .65rem;">&nbsp;Ad Sales</span><br>
-    'Thanks for the ride to work.' -<b>Ricky B.</b><span style="font-size: .65rem;">&nbsp;Distribution</span></p>
-  </div>
+            <!-- The Herald -->
+            <article class="work-item">
+                <div class="work-meta">
+                    <h3 class="work-title">The Herald</h3>
+                    <p class="work-role">Content and ad sales for a weekly paper with moderate circulation</p>
+                    <div class="work-metrics">
+                        <p>280 news stories</p>
+                        <p>30 columns</p>
+                        <p>Hundreds of page layouts</p>
+                        <p>Thousands of photos</p>
+                        <p>Photographed one building burning to the ground</p>
+                    </div>
+                </div>
+                <div class="work-content">
+                    <div class="work-reviews">
+                        <div class="review">
+                            "Max is the smartest guy I've ever met."<br>
+                            <span class="reviewer-name">Darrik G.</span><br>
+                            <span class="reviewer-title">Sports Reporter</span>
+                        </div>
+                        <div class="review">
+                            "Great at seeing the big picture and hitting deadlines."<br>
+                            <span class="reviewer-name">Jared H.</span><br>
+                            <span class="reviewer-title">Editor</span>
+                        </div>
+                        <div class="review">
+                            "A pleasure to work with."<br>
+                            <span class="reviewer-name">Margaret C.</span><br>
+                            <span class="reviewer-title">Ad Sales</span>
+                        </div>
+                        <div class="review">
+                            "Thanks for the ride to work."<br>
+                            <span class="reviewer-name">Ricky B.</span><br>
+                            <span class="reviewer-title">Distribution</span>
+                        </div>
+                    </div>
+                    <a href="herald.html" class="work-link">View Work</a>
+                </div>
+            </article>
 
-  <div class="card" id="extraCard">
-    <h2>other stuff</h2>
-    <p class="tagline">Graphic/web design for tatooers, for the classroom and for Danville Forensics.</p>
-    <span style='cursor:pointer;' onclick="extraReview()"><a>reviews</a><br></span>
-      <a href="other.html">sample work</a></p>
-  </div>
+            <!-- Other Stuff -->
+            <article class="work-item">
+                <div class="work-meta">
+                    <h3 class="work-title">Other Stuff</h3>
+                    <p class="work-role">Graphic/web design for tattooers, for the classroom and for Danville Forensics</p>
+                </div>
+                <div class="work-content">
+                    <div class="work-reviews">
+                        <div class="review">
+                            "Max is the best."<br>
+                            <span class="reviewer-name">Grace H.</span><br>
+                            <span class="reviewer-title">DHS Forensics</span>
+                        </div>
+                        <div class="review">
+                            "My bookings are way easier now. You're amazing!"<br>
+                            <span class="reviewer-name">Hannah H.</span><br>
+                            <span class="reviewer-title">Tattoo Artist</span>
+                        </div>
+                        <div class="review">
+                            "This is so impressive!"<br>
+                            <span class="reviewer-name">Valerie H.</span><br>
+                            <span class="reviewer-title">Elementary Music Teacher</span>
+                        </div>
+                    </div>
+                    <a href="other.html" class="work-link">View Work</a>
+                </div>
+            </article>
+        </div>
+    </section>
 
-  <div class="card" id="extraReviewCard" style="display:none;">
-    <div style="display: flex; justify-content: space-between;"><h2>Other Reviews</h2><img onclick="extraReview()" src="images/flip-arrow.png" style="cursor:pointer; display:inline; width:7%"></div>
-    <p style="margin-top:-8px;">'Max is the best.' -<b>Grace H.</b><span style="font-size: .65rem;">&nbsp;DHS Forensics<br></span>
-    'My bookings are way easier now. You're amazing!' -<b>Hannah H.</b><span style="font-size: .65rem;">&nbsp;Tattoo Artist<br></span>
-    'This is so impressive!' -<b>Valerie H.</b><span style="font-size: .65rem;">&nbsp;Elementary Music Teacher</span><br>
-  </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-cta">Hire me to do something cool for you</div>
+            <a href="mailto:mxsearcy@gmail.com" class="footer-email">mxsearcy@gmail.com</a>
+        </div>
+    </footer>
 
-  <span></span>
-</div>
-<div class="footer" id="footer">
-<p> Hire me to do something cool for you! &NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace; <a href="mailto:mxsearcy@gmail.com?subject=Job%20Proposal" target="_blank" rel="noopener noreferrer"> mxsearcy@gmail.com</a></p>
-</div>
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
 
-<script src="scripts.js">
-</script>
+        // Intersection Observer for work items
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.work-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
 </body>
-</html> 
-   
+</html>

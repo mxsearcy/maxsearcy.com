@@ -79,3 +79,7 @@ function extraReview() {
 window.heraldReview = heraldReview;
 window.iubendaReview = iubendaReview;
 
+function sample(sampleID) {
+location.href = "/" + sampleID;
+}
+

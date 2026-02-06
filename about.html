@@ -1,46 +1,315 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Max</title>
-<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-<link rel="stylesheet" href="style.css">
-<link rel="preload" as="image"  href="hero.jpg">  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Max Searcy</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #F8F6F1;
+            --charcoal: #1A1A1A;
+            --slate: #4A4A4A;
+            --accent: #CD501A;
+            --divider: #E5E1D8;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* About Section */
+        .about-section {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-image {
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image img {
+            max-width: 70%;
+            height: auto;
+            opacity: 0.9;
+        }
+
+        .about-content {
+            padding: 6rem 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--slate);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .about-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .about-tagline {
+            font-size: 1.2rem;
+            color: var(--slate);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .about-tagline del {
+            opacity: 0.5;
+        }
+
+        .about-bio {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--slate);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .about-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--divider);
+            text-decoration: none;
+            color: var(--charcoal);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .about-link:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--cream);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 4rem 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-cta {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .footer-email {
+            font-size: 1.1rem;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                min-height: 40vh;
+            }
+
+            .about-content {
+                padding: 4rem 3rem;
+            }
+
+            .about-title {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem 2rem;
+            }
+
+            .about-content {
+                padding: 3rem 2rem;
+            }
+
+            .about-title {
+                font-size: 2rem;
+            }
+
+            .about-links {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-cta {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-<div class="menu">
-  <div style= "font-size:3rem; margin-bottom: -7%; margin-top:-3%; flex-grow: 1; text-align: center;">
-    <p> <span class="home-link" id="home-link" onclick="goHome()">Max</span> <span class="home-link" onclick="goHome()">Searcy</span></p>
-  </div>
-  <span class="menu-icon" onclick="toggleMenu()">v</span>
-</div>
-  <div class="menu-content" id="menuContent">
-    <a href="about.html">Who's that? <br> </a>
-    <a href="kitties.html">Pics of Cats</a>
-  </div>
-</div>
-</div>
-<div class="container">
-  <img src="hero.jpeg" width="30%" style="border-radius: 50px; border-bottom-left-radius: 0px; margin-bottom: -110px; z-index: 100;">
-  <p style="text-align: center; text-shadow: 0 1px 1px #ffff;"><b> &NonBreakingSpace; 👈 Just a guy being a dude.</b></p>
-  <div class="about-card" style="margin-left: 45px;">
-    <h2>Make good stuff</h2>
-    <p class="tagline">If it ain't broke, <del>don't fix it</del> let's break it.</p> 
-    <p> Master's Degree in learning design and tech; dad to 2; board game addict; plays keys, bass and drums poorly; always cooking or cleaning up; trying to start a garden</p>
-    <p> <a href="http://goodreads.com/mxsearcy">current reading </a>& <a href="#music">playlists</a><br>
-        <a href="https://www.linkedin.com/in/mxsearcy">LinkedIn</a> & <a href='https://paypal.me/paymaxnow' target="_blank">Tip Jar</a></p>
-  </div>
-  <span></span>
-</div>
-<div class="footer" id="footer">
-<p> Hire me to do something cool for you! &nbsp;&nbsp;&nbsp; <a href="mailto:mxsearcy@gmail.com?subject=Job%20Proposal" target="_blank" rel="noopener noreferrer"> mxsearcy@gmail.com</a></p>
-</div>
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="logo">MAX SEARCY</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:mxsearcy@gmail.com">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<script src="scripts.js">
-</script>
+    <section class="about-section">
+        <div class="about-image">
+            <img src="hero.jpg" alt="Max Searcy">
+        </div>
+        <div class="about-content">
+            <p class="about-label">Just a guy being a dude</p>
+            <h1 class="about-title">Make good stuff</h1>
+            <p class="about-tagline">If it ain't broke, <del>don't fix it</del> let's break it.</p>
+            <p class="about-bio">
+                Master's Degree in learning design and tech; dad to 2; board game addict; plays keys, bass and drums poorly; always cooking or cleaning up; trying to start a garden
+            </p>
+            <div class="about-links">
+                <a href="http://goodreads.com/mxsearcy" class="about-link" target="_blank">Current Reading</a>
+                <a href="https://music.apple.com/profile/maxwellsearcy" class="about-link" target="_blank">Playlists</a>
+                <a href="https://www.linkedin.com/in/mxsearcy" class="about-link" target="_blank">LinkedIn</a>
+                <a href="https://paypal.me/paymaxnow" class="about-link" target="_blank">Tip Jar</a>
+            </div>
+        </div>
+    </section>
 
+    <footer>
+        <div class="footer-content">
+            <div class="footer-cta">Hire me to do something cool for you</div>
+            <a href="mailto:mxsearcy@gmail.com" class="footer-email">mxsearcy@gmail.com</a>
+        </div>
+    </footer>
 </body>
-</html> 
+</html>

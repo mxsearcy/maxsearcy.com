@@ -1,63 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Max</title>
-<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-<link rel="stylesheet" href="style.css">
-<style>
-img {
-  max-width: 75%;
-  border-radius: 3%;
-  border: 2px solid #FEE350;
-}
-/* img.zoomed {
-  transform: scale(5.5);
-  border: 2px solid #cd501a;
-  box-shadow: #333;
-  position: relative;
-}
-img.small-zoomed {
-  transform: scale(2.5);
-  border: 2px solid #cd501a;
-  box-shadow: #333;
-  position: relative;
-} */
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Herald — Max Searcy</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #F8F6F1;
+            --charcoal: #1A1A1A;
+            --slate: #4A4A4A;
+            --accent: #CD501A;
+            --divider: #E5E1D8;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 70vh;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-content {
+            padding: 6rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--slate);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Content */
+        .content-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 4rem;
+        }
+
+        .work-block {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .work-meta {
+            position: sticky;
+            top: 120px;
+        }
+
+        .work-block-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .work-block-description {
+            font-size: 1rem;
+            color: var(--slate);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .sample-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sample-btn {
+            padding: 1rem 1.5rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            border: none;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .sample-btn:hover {
+            background: var(--accent);
+        }
+
+        .work-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .work-visual img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--divider);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 4rem 3rem;
+            margin-top: 8rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-cta {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .footer-email {
+            font-size: 1.1rem;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .hero-content {
+                padding: 4rem 3rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .content-section {
+                padding: 4rem 3rem;
+            }
+
+            .work-block {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .work-meta {
+                position: relative;
+                top: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem 2rem;
+            }
+
+            .hero-content {
+                padding: 3rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .content-section {
+                padding: 3rem 2rem;
+            }
+
+            .work-block-title {
+                font-size: 2rem;
+            }
+
+            .footer-cta {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="menu">
-    <div style= "font-size:3rem; margin-bottom: -7%; margin-top:-3%; flex-grow: 1; text-align: center;">
-      <p> <span class="home-link" id="home-link" onclick="goHome()">Max</span> <span class="home-link" onclick="goHome()">Searcy</span></p>
-    </div>
-  
-    <span class="menu-icon" onclick="toggleMenu()">v</span></div>
-    <div class="menu-content" id="menuContent">
-      <a href="about.html">Who's that? <br> </a>
-      <a href="kitties.html">Pics of Cats</a>
-    </div>
-</div>
-<p style="margin-left: 10%; margin-right: 10%; text-align: left; text-shadow: 0 1px 1px #ffff ;"><b>At The Herald, I was hired as 'news staff,' which meant I took photos, designed pages and graphics, investigated, wrote articles and columns and even edited the obits.</b></p>
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="logo">MAX SEARCY</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:mxsearcy@gmail.com">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<div class="container" style=" width: 90%; height:fit-content; display:flex;">
-  <div class="card" style="padding-bottom: 10px; height:fit-content; border-radius: 3px;">
-    <h2>News, design, editing</h2>
-    <p class="tagline" style="text-align: justify;">I designed, photographed and wrote copy for dozens of news stories each week along with a column published intermittently. <br><span style="line-height: 2rem;">Click to view some samples.</p>
-    <button onclick=sample('MLK')>A small town MLK Day in 2015</button> <button onclick=sample('state-fair')>An outdoor theatre performance</button> <button onclick="sample('columns')">'Where Is My Mind?' Column</button>
-    </div>
-    <img src="images/fire-shot.png">
-  </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">The Herald</h1>
+            <p class="hero-description">At The Herald, I was hired as 'news staff,' which meant I took photos, designed pages and graphics, investigated, wrote articles and columns and even edited the obits.</p>
+        </div>
+        <div class="hero-image">
+            <img src="images/fire-shot.png" alt="The Herald work">
+        </div>
+    </section>
 
-  <div class="footer" id="footer">
-    <p> Hire me to do something cool for you! &NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace; <a href="mailto:mxsearcy@gmail.com?subject=Job%20Proposal" target="_blank" rel="noopener noreferrer"> mxsearcy@gmail.com</a></p>
-  </div>
+    <main class="content-section">
+        <div class="work-block">
+            <div class="work-meta">
+                <h2 class="work-block-title">News, Design, Editing</h2>
+                <p class="work-block-description">I designed, photographed and wrote copy for dozens of news stories each week along with a column published intermittently.</p>
+                <div class="sample-buttons">
+                    <button class="sample-btn" onclick="sample('MLK')">A small town MLK Day in 2015</button>
+                    <button class="sample-btn" onclick="sample('state-fair')">An outdoor theatre performance</button>
+                    <button class="sample-btn" onclick="sample('columns')">'Where Is My Mind?' Column</button>
+                </div>
+            </div>
+            <div class="work-visual">
+                <!-- Content can be dynamically loaded here based on button clicks -->
+            </div>
+        </div>
+    </main>
 
-  <script src="scripts.js">
-  </script>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-cta">Hire me to do something cool for you</div>
+            <a href="mailto:mxsearcy@gmail.com" class="footer-email">mxsearcy@gmail.com</a>
+        </div>
+    </footer>
 
-  <script>
-    magnify("MLKpage", 3);
-  </script>
+    <script>
+        function sample(type) {
+            // This function would handle showing different samples
+            // You can implement it to show different content based on the button clicked
+            console.log('Sample type:', type);
+            // Add your sample loading logic here
+        }
+    </script>
 </body>
+</html>

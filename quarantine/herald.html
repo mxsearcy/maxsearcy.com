@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max</title>
+<link rel="icon" type="image/x-icon" href="/images/favicon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+img {
+  max-width: 75%;
+  border-radius: 3%;
+  border: 2px solid #FEE350;
+}
+</style>
+</head>
+
+<body>
+  <div class="menu">
+    <div style= "font-size:3rem; margin-bottom: -7%; margin-top:-3%; flex-grow: 1; text-align: center;">
+      <p> <span class="home-link" id="home-link" onclick="goHome()">Max</span> <span class="home-link" onclick="goHome()">Searcy</span></p>
+    </div>
+  
+    <span class="menu-icon" onclick="toggleMenu()">v</span></div>
+    <div class="menu-content" id="menuContent">
+      <a href="about.html">Who's that? <br> </a>
+      <a href="kitties.html">Pics of Cats</a>
+    </div>
+</div>
+<p style="margin-left: 10%; margin-right: 10%; text-align: left; text-shadow: 0 1px 1px #ffff ;"><b>At The Herald, I was hired as 'news staff,' which meant I took photos, designed pages and graphics, investigated, wrote articles and columns and even edited the obits.</b></p>
+
+<div class="container" style=" width: 90%; height:fit-content; display:flex;">
+  <div class="card" style="padding-bottom: 10px; height:fit-content; border-radius: 3px;">
+    <h2>News, design, editing</h2>
+    <p class="tagline" style="text-align: justify;">I designed, photographed and wrote copy for dozens of news stories each week along with a column published intermittently. <br><span style="line-height: 2rem;">Click to view some samples.</p>
+    <button onclick=sample(MLK)>A small town MLK Day in 2015</button> <button onclick=sample(state-fair)>An outdoor theatre performance</button> <button onclick="sample('columns')">'Where Is My Mind?' Column</button>
+    </div>
+    <img src="images/fire-shot.png">
+  </div>
+
+  <div class="footer" id="footer">
+    <p> Hire me to do something cool for you! &NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace; <a href="mailto:mxsearcy@gmail.com?subject=Job%20Proposal" target="_blank" rel="noopener noreferrer"> mxsearcy@gmail.com</a></p>
+  </div>
+
+  <script src="scripts.js">
+  </script>
+</body>
