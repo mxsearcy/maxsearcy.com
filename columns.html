@@ -1,25 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Max</title>
-<link rel="icon" type="image/x-icon" href="/images/favicon.png">
-<link rel="stylesheet" href="style.css">
-<style>
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>'Where Is My Mind?' Column — Max Searcy</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #F8F6F1;
+            --charcoal: #1A1A1A;
+            --slate: #4A4A4A;
+            --accent: #CD501A;
+            --divider: #E5E1D8;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation — hidden until hover */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--divider);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        nav.nav-visible {
+            opacity: 1;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Header */
+        .page-header {
+            padding: 5rem 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 4rem;
+            margin-bottom: 1.25rem;
+            color: var(--charcoal);
+        }
+
+        .page-subtitle {
+            font-size: 1.15rem;
+            color: var(--slate);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        /* Back nav */
+        .back-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem 2rem;
+        }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--slate);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Content */
+        .content-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem 4rem;
+        }
+
+        .column-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .column-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid var(--divider);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 4rem 3rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-cta {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .footer-email {
+            font-size: 1.1rem;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem 2rem;
+            }
+
+            .page-header {
+                padding: 4rem 2rem 2rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .back-nav {
+                padding: 0 2rem 2rem;
+            }
+
+            .content-section {
+                padding: 0 2rem 3rem;
+            }
+
+            .column-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-cta {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="menu">
-    <div style= "font-size:3rem; margin-bottom: -3%; margin-top:-3%; flex-grow: 1; text-align: center;">
-      <p> <span class="home-link" id="home-link" onclick="goHome()">Max</span> <span class="home-link" onclick="goHome()">Searcy</span></p>
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="logo">MAX SEARCY</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:mxsearcy@gmail.com">Email</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1 class="page-title">'Where Is My Mind?' Column</h1>
+        <p class="page-subtitle">I wrote a column they used to fill space and sell ads.</p>
+    </header>
+
+    <div class="back-nav">
+        <a href="herald.html" class="back-link">&larr; Back to The Herald</a>
     </div>
-  </div>
-  <span style="margin-top: 12px;">I wrote a column that they used to fill space and sell ads.</span>
-  <button onclick="history.go(-1); return false;">Back to Herald Samples</button>
-  <div class="card" style="display: flex; flex-direction: column; justify-content: space-between ; gap:10px;">
-  <img src="images/column-bats.png"> <img src="images/column-charity.png"> <img src="images/column-biases.png"> <img src="images/column-biohacking.png">
-<script src="scripts.js">
-</script>
+
+    <main class="content-section">
+        <div class="column-grid">
+            <img src="images/column-bats.png" alt="'Where Is My Mind?' column — bats">
+            <img src="images/column-charity.png" alt="'Where Is My Mind?' column — charity">
+            <img src="images/column-biases.png" alt="'Where Is My Mind?' column — biases">
+            <img src="images/column-biohacking.png" alt="'Where Is My Mind?' column — biohacking">
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-cta">Hire me to do something cool for you.</div>
+            <a href="mailto:mxsearcy@gmail.com" class="footer-email">mxsearcy@gmail.com</a>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const nav = document.querySelector('nav');
+            const MOBILE = 768;
+            nav.addEventListener('mouseenter', () => { if (window.innerWidth > MOBILE) nav.classList.add('nav-visible'); });
+            nav.addEventListener('mouseleave', () => { if (window.innerWidth > MOBILE) nav.classList.remove('nav-visible'); });
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth > MOBILE) return;
+                const y = window.scrollY;
+                if (y < lastScrollY) nav.classList.add('nav-visible');
+                else nav.classList.remove('nav-visible');
+                lastScrollY = y;
+            }, { passive: true });
+        })();
+    </script>
 </body>
 </html>

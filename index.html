@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Max Searcy</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -27,51 +30,61 @@
             background: var(--cream);
             color: var(--charcoal);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Typography */
         h1, h2, h3 {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
             letter-spacing: -0.02em;
         }
 
-        /* Navigation */
-        nav {
+        /* Splash ribbon — starts centered, animates to navbar position on scroll */
+        .splash-ribbon {
             position: fixed;
-            top: 0;
             left: 0;
             right: 0;
             background: rgba(248, 246, 241, 0.95);
             backdrop-filter: blur(10px);
-            z-index: 1000;
+            border-top: 1px solid var(--divider);
             border-bottom: 1px solid var(--divider);
+            z-index: 1000;
+            will-change: transform;
         }
 
-        .nav-content {
+        .ribbon-inner {
+            position: relative;
+            height: 60px;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 0 3rem;
         }
 
-        .logo {
+        .ribbon-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             font-weight: 400;
             letter-spacing: 0.1em;
             color: var(--charcoal);
+            white-space: nowrap;
         }
 
-        .nav-links {
+        .ribbon-links {
+            position: absolute;
+            top: 50%;
+            right: 3rem;
+            transform: translateY(-50%) translateX(150px);
+            opacity: 0;
             display: flex;
             gap: 2.5rem;
             list-style: none;
         }
 
-        .nav-links a {
+        .ribbon-links a {
             text-decoration: none;
             color: var(--slate);
             font-size: 0.9rem;
@@ -81,7 +94,7 @@
             position: relative;
         }
 
-        .nav-links a::after {
+        .ribbon-links a::after {
             content: '';
             position: absolute;
             bottom: -4px;
@@ -92,32 +105,69 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .ribbon-links a:hover { color: var(--accent); }
+        .ribbon-links a:hover::after { width: 100%; }
 
         /* Hero */
+        .hero-scroll-wrapper {
+            height: 165vh;
+        }
+
         .hero {
-            margin-top: 80px;
-            height: 85vh;
+            position: sticky;
+            top: 0;
+            height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
+            /* No max-width — JS animates margins on wide screens */
+            overflow: hidden;
         }
 
         .hero-left {
+            background: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-right {
             background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .initials-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 300;
+        }
+
+        .initials-layer span {
+            position: absolute;
+            white-space: nowrap;
+            line-height: 1;
+            will-change: transform, opacity;
+        }
+
+        .hero-left-content,
+        .hero-right-content {
+            position: absolute;
+            inset: 0;
             display: flex;
+            opacity: 0;
+            will-change: opacity;
+        }
+
+        .hero-left-content {
             flex-direction: column;
             justify-content: center;
             padding: 5rem;
-            position: relative;
+        }
+
+        .hero-right-content {
+            align-items: center;
+            justify-content: center;
         }
 
         .hero-title {
@@ -125,32 +175,9 @@
             color: var(--cream);
             line-height: 0.9;
             margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease 0.2s forwards;
-        }
-
-        .hero-subtitle {
-            font-size: 1rem;
-            color: rgba(248, 246, 241, 0.6);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            font-weight: 300;
-            opacity: 0;
-            animation: fadeIn 1s ease 0.6s forwards;
-        }
-
-        .hero-right {
-            background: var(--accent);
-            position: relative;
-            overflow: hidden;
         }
 
         .hero-tagline {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.5rem;
             font-weight: 300;
@@ -158,8 +185,6 @@
             text-align: center;
             line-height: 1.4;
             padding: 2rem;
-            opacity: 0;
-            animation: fadeIn 1s ease 1s forwards;
         }
 
         .hero-tagline del {
@@ -312,35 +337,8 @@
             color: var(--accent);
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-
-            .hero-left,
-            .hero-right {
-                min-height: 50vh;
-            }
-
-            .hero-title {
-                font-size: 3rem;
-            }
-
             .work-item {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -357,8 +355,8 @@
                 text-align: center;
             }
 
-            .nav-content {
-                padding: 1.5rem 2rem;
+            .ribbon-inner {
+                padding: 0 2rem;
             }
 
             .work-section {
@@ -367,16 +365,32 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links {
+            .hero-scroll-wrapper {
+                height: auto;
+            }
+
+            .hero {
+                position: relative;
+                top: auto;
+                height: auto;
+                grid-template-columns: 1fr;
+            }
+
+            .hero-left,
+            .hero-right {
+                min-height: 50vh;
+            }
+
+            .hero-left-content {
+                padding: 3rem 2rem;
+            }
+
+            .ribbon-links {
                 gap: 1.5rem;
             }
 
-            .nav-links a {
+            .ribbon-links a {
                 font-size: 0.8rem;
-            }
-
-            .hero-left {
-                padding: 3rem 2rem;
             }
 
             .hero-title {
@@ -398,30 +412,84 @@
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-content">
-            <div class="logo">MAX SEARCY</div>
-            <ul class="nav-links">
+    <!-- Splash ribbon: centered on load, scrolls up to become the navbar -->
+    <div class="splash-ribbon" id="splash-ribbon">
+        <div class="ribbon-inner" id="ribbon-inner">
+            <div class="ribbon-name" id="ribbon-name">MAX SEARCY</div>
+            <ul class="ribbon-links" id="ribbon-links">
                 <li><a href="#work">Work</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="mailto:mxsearcy@gmail.com">Contact</a></li>
+                <li><a href="mailto:mxsearcy@gmail.com">Email</a></li>
             </ul>
         </div>
-    </nav>
+    </div>
 
-    <section class="hero">
-        <div class="hero-left">
-            <h1 class="hero-title">Some work I've done<br>and how they<br>liked it</h1>
-            <p class="hero-subtitle">Writer · Designer · Problem Solver</p>
-        </div>
-        <div class="hero-right">
-            <div class="hero-tagline">If it ain't broke,<br><del>don't fix it</del><br>let's break it.</div>
-        </div>
-    </section>
+    <div class="hero-scroll-wrapper" id="hero-wrapper">
+        <section class="hero" id="hero">
+            <div class="hero-left">
+                <div class="initials-layer" id="left-initials">
+                    <span data-rotate="-6"  data-dx="-140" data-dy="-80"  data-opacity="0.42" style="left:2%;top:3%;font-size:4.2rem;color:#F8F6F1;opacity:0.42;transform:rotate(-6deg)">writer</span>
+                    <span data-rotate="4"   data-dx="90"   data-dy="-60"  data-opacity="0.33" style="left:47%;top:2%;font-size:2.5rem;color:#F8F6F1;opacity:0.33;transform:rotate(4deg)">photographer</span>
+                    <span data-rotate="-3"  data-dx="70"   data-dy="-45"  data-opacity="0.28" style="left:79%;top:6%;font-size:1.9rem;color:#F8F6F1;opacity:0.28;transform:rotate(-3deg)">teacher</span>
+                    <span data-rotate="5"   data-dx="-80"  data-dy="90"   data-opacity="0.37" style="left:10%;top:14%;font-size:3.0rem;color:#F8F6F1;opacity:0.37;transform:rotate(5deg)">storyteller</span>
+                    <span data-rotate="-7"  data-dx="100"  data-dy="-55"  data-opacity="0.32" style="left:54%;top:13%;font-size:2.3rem;color:#F8F6F1;opacity:0.32;transform:rotate(-7deg)">developer</span>
+                    <span data-rotate="3"   data-dx="60"   data-dy="40"   data-opacity="0.27" style="left:83%;top:17%;font-size:1.8rem;color:#F8F6F1;opacity:0.27;transform:rotate(3deg)">neighbor</span>
+                    <span data-rotate="-4"  data-dx="-100" data-dy="100"  data-opacity="0.38" style="left:3%;top:25%;font-size:3.5rem;color:#F8F6F1;opacity:0.38;transform:rotate(-4deg)">problem solver</span>
+                    <span data-rotate="8"   data-dx="110"  data-dy="80"   data-opacity="0.35" style="left:57%;top:26%;font-size:2.8rem;color:#F8F6F1;opacity:0.35;transform:rotate(8deg)">gamemaster</span>
+                    <span data-rotate="-9"  data-dx="-60"  data-dy="70"   data-opacity="0.30" style="left:19%;top:38%;font-size:2.1rem;color:#F8F6F1;opacity:0.30;transform:rotate(-9deg)">organizer</span>
+                    <span data-rotate="-3"  data-dx="75"   data-dy="-50"  data-opacity="0.40" style="left:70%;top:35%;font-size:3.2rem;color:#F8F6F1;opacity:0.40;transform:rotate(-3deg)">leader</span>
+                    <span data-rotate="6"   data-dx="-90"  data-dy="110"  data-opacity="0.34" style="left:4%;top:46%;font-size:2.6rem;color:#F8F6F1;opacity:0.34;transform:rotate(6deg)">volunteer</span>
+                    <span data-rotate="-5"  data-dx="85"   data-dy="65"   data-opacity="0.29" style="left:44%;top:50%;font-size:2.0rem;color:#F8F6F1;opacity:0.29;transform:rotate(-5deg)">marketer</span>
+                    <span data-rotate="4"   data-dx="65"   data-dy="45"   data-opacity="0.33" style="left:74%;top:49%;font-size:2.4rem;color:#F8F6F1;opacity:0.33;transform:rotate(4deg)">digital coach</span>
+                    <span data-rotate="-8"  data-dx="-120" data-dy="130"  data-opacity="0.41" style="left:6%;top:57%;font-size:3.8rem;color:#F8F6F1;opacity:0.41;transform:rotate(-8deg)">strategist</span>
+                    <span data-rotate="5"   data-dx="95"   data-dy="60"   data-opacity="0.29" style="left:62%;top:62%;font-size:2.0rem;color:#F8F6F1;opacity:0.29;transform:rotate(5deg)">writer</span>
+                    <span data-rotate="-4"  data-dx="-75"  data-dy="90"   data-opacity="0.32" style="left:28%;top:68%;font-size:2.2rem;color:#F8F6F1;opacity:0.32;transform:rotate(-4deg)">photographer</span>
+                    <span data-rotate="7"   data-dx="100"  data-dy="85"   data-opacity="0.36" style="left:4%;top:72%;font-size:2.7rem;color:#F8F6F1;opacity:0.36;transform:rotate(7deg)">problem solver</span>
+                    <span data-rotate="-6"  data-dx="55"   data-dy="-60"  data-opacity="0.27" style="left:79%;top:71%;font-size:1.9rem;color:#F8F6F1;opacity:0.27;transform:rotate(-6deg)">teacher</span>
+                    <span data-rotate="3"   data-dx="-100" data-dy="110"  data-opacity="0.39" style="left:9%;top:80%;font-size:3.5rem;color:#F8F6F1;opacity:0.39;transform:rotate(3deg)">designer</span>
+                    <span data-rotate="-9"  data-dx="80"   data-dy="70"   data-opacity="0.30" style="left:55%;top:78%;font-size:2.1rem;color:#F8F6F1;opacity:0.30;transform:rotate(-9deg)">neighbor</span>
+                    <span data-rotate="5"   data-dx="-85"  data-dy="120"  data-opacity="0.35" style="left:35%;top:89%;font-size:2.9rem;color:#F8F6F1;opacity:0.35;transform:rotate(5deg)">storyteller</span>
+                    <span data-rotate="-3"  data-dx="75"   data-dy="65"   data-opacity="0.31" style="left:72%;top:91%;font-size:2.3rem;color:#F8F6F1;opacity:0.31;transform:rotate(-3deg)">gamemaster</span>
+                </div>
+                <div class="hero-left-content" id="left-text">
+                    <h1 class="hero-title">Here's some<br>work I did<br>and how they<br>liked it.</h1>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="initials-layer" id="right-initials">
+                    <span data-rotate="6"   data-dx="-100" data-dy="-80"  data-opacity="0.44" style="left:5%;top:4%;font-size:3.8rem;color:#F8F6F1;opacity:0.44;transform:rotate(6deg)">designer</span>
+                    <span data-rotate="-4"  data-dx="80"   data-dy="-65"  data-opacity="0.33" style="left:57%;top:3%;font-size:2.6rem;color:#F8F6F1;opacity:0.33;transform:rotate(-4deg)">volunteer</span>
+                    <span data-rotate="-8"  data-dx="-90"  data-dy="75"   data-opacity="0.41" style="left:6%;top:15%;font-size:3.5rem;color:#F8F6F1;opacity:0.41;transform:rotate(-8deg)">writer</span>
+                    <span data-rotate="5"   data-dx="95"   data-dy="-50"  data-opacity="0.35" style="left:48%;top:16%;font-size:2.4rem;color:#F8F6F1;opacity:0.35;transform:rotate(5deg)">gamemaster</span>
+                    <span data-rotate="3"   data-dx="50"   data-dy="-40"  data-opacity="0.28" style="left:82%;top:11%;font-size:1.9rem;color:#F8F6F1;opacity:0.28;transform:rotate(3deg)">leader</span>
+                    <span data-rotate="-5"  data-dx="-80"  data-dy="90"   data-opacity="0.38" style="left:7%;top:27%;font-size:2.9rem;color:#F8F6F1;opacity:0.38;transform:rotate(-5deg)">photographer</span>
+                    <span data-rotate="-10" data-dx="110"  data-dy="100"  data-opacity="0.42" style="left:42%;top:32%;font-size:3.3rem;color:#F8F6F1;opacity:0.42;transform:rotate(-10deg)">problem solver</span>
+                    <span data-rotate="4"   data-dx="65"   data-dy="-45"  data-opacity="0.31" style="left:78%;top:29%;font-size:2.0rem;color:#F8F6F1;opacity:0.31;transform:rotate(4deg)">teacher</span>
+                    <span data-rotate="9"   data-dx="-110" data-dy="85"   data-opacity="0.35" style="left:4%;top:40%;font-size:2.5rem;color:#F8F6F1;opacity:0.35;transform:rotate(9deg)">marketer</span>
+                    <span data-rotate="-6"  data-dx="100"  data-dy="110"  data-opacity="0.39" style="left:48%;top:44%;font-size:3.0rem;color:#F8F6F1;opacity:0.39;transform:rotate(-6deg)">storyteller</span>
+                    <span data-rotate="3"   data-dx="60"   data-dy="50"   data-opacity="0.30" style="left:80%;top:46%;font-size:2.1rem;color:#F8F6F1;opacity:0.30;transform:rotate(3deg)">organizer</span>
+                    <span data-rotate="-3"  data-dx="-80"  data-dy="115"  data-opacity="0.38" style="left:8%;top:54%;font-size:2.8rem;color:#F8F6F1;opacity:0.38;transform:rotate(-3deg)">developer</span>
+                    <span data-rotate="7"   data-dx="100"  data-dy="65"   data-opacity="0.36" style="left:55%;top:59%;font-size:2.5rem;color:#F8F6F1;opacity:0.36;transform:rotate(7deg)">leader</span>
+                    <span data-rotate="-7"  data-dx="-95"  data-dy="100"  data-opacity="0.34" style="left:5%;top:65%;font-size:2.3rem;color:#F8F6F1;opacity:0.34;transform:rotate(-7deg)">digital coach</span>
+                    <span data-rotate="4"   data-dx="85"   data-dy="75"   data-opacity="0.40" style="left:44%;top:70%;font-size:3.2rem;color:#F8F6F1;opacity:0.40;transform:rotate(4deg)">strategist</span>
+                    <span data-rotate="-4"  data-dx="60"   data-dy="55"   data-opacity="0.29" style="left:79%;top:68%;font-size:2.0rem;color:#F8F6F1;opacity:0.29;transform:rotate(-4deg)">neighbor</span>
+                    <span data-rotate="5"   data-dx="-100" data-dy="105"  data-opacity="0.36" style="left:6%;top:75%;font-size:2.7rem;color:#F8F6F1;opacity:0.36;transform:rotate(5deg)">writer</span>
+                    <span data-rotate="-5"  data-dx="90"   data-dy="80"   data-opacity="0.33" style="left:53%;top:80%;font-size:2.4rem;color:#F8F6F1;opacity:0.33;transform:rotate(-5deg)">volunteer</span>
+                    <span data-rotate="8"   data-dx="-85"  data-dy="90"   data-opacity="0.41" style="left:3%;top:84%;font-size:3.4rem;color:#F8F6F1;opacity:0.41;transform:rotate(8deg)">designer</span>
+                    <span data-rotate="-6"  data-dx="75"   data-dy="-70"  data-opacity="0.30" style="left:62%;top:88%;font-size:2.1rem;color:#F8F6F1;opacity:0.30;transform:rotate(-6deg)">gamemaster</span>
+                    <span data-rotate="3"   data-dx="-90"  data-dy="100"  data-opacity="0.37" style="left:28%;top:92%;font-size:2.6rem;color:#F8F6F1;opacity:0.37;transform:rotate(3deg)">photographer</span>
+                    <span data-rotate="-3"  data-dx="80"   data-dy="70"   data-opacity="0.31" style="left:74%;top:95%;font-size:2.0rem;color:#F8F6F1;opacity:0.31;transform:rotate(-3deg)">problem solver</span>
+                </div>
+                <div class="hero-right-content" id="right-tagline">
+                    <div class="hero-tagline">If it ain't broke,<br><del>don't fix it</del><br>let's break it.</div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <section id="work" class="work-section">
         <h2 class="section-header">Selected Work</h2>
-        
+
         <div class="work-grid">
             <!-- iubenda -->
             <article class="work-item">
@@ -501,7 +569,7 @@
             <article class="work-item">
                 <div class="work-meta">
                     <h3 class="work-title">Other Stuff</h3>
-                    <p class="work-role">Graphic/web design for tattooers, for the classroom and for Danville Forensics</p>
+                    <p class="work-role">Graphic/web design for family & neighbors, for local tattooers, and for Danville-Boyle County Schools</p>
                 </div>
                 <div class="work-content">
                     <div class="work-reviews">
@@ -529,10 +597,146 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-cta">Hire me to do something cool for you</div>
+            <div class="footer-cta">Hire me to do something cool for you.</div>
             <a href="mailto:mxsearcy@gmail.com" class="footer-email">mxsearcy@gmail.com</a>
         </div>
     </footer>
+
+    <script>
+        // Hero + ribbon animation
+        (function() {
+            var MOBILE_BP = 768;
+            var wrapper    = document.getElementById('hero-wrapper');
+            var hero       = document.getElementById('hero');
+            var heroLeft   = document.querySelector('.hero-left');
+            var heroRight  = document.querySelector('.hero-right');
+            var leftInit   = document.getElementById('left-initials');
+            var rightInit  = document.getElementById('right-initials');
+            var leftText   = document.getElementById('left-text');
+            var rightTag   = document.getElementById('right-tagline');
+            var ribbon     = document.getElementById('splash-ribbon');
+            var ribbonInner= document.getElementById('ribbon-inner');
+            var ribbonName = document.getElementById('ribbon-name');
+            var ribbonLinks= document.getElementById('ribbon-links');
+
+            var RED  = { r:205, g:80,  b:26  };
+            var DARK = { r:26,  g:26,  b:26  };
+
+            function lerp(a,b,t){ return a+(b-a)*t; }
+            function clamp(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); }
+            function range(lo,hi,v){ return clamp((v-lo)/(hi-lo),0,1); }
+            function lerpColor(c1,c2,t){
+                return 'rgb('+Math.round(lerp(c1.r,c2.r,t))+','+Math.round(lerp(c1.g,c2.g,t))+','+Math.round(lerp(c1.b,c2.b,t))+')';
+            }
+
+            function scatterSpans(layerEl, progress) {
+                layerEl.querySelectorAll('span').forEach(function(span) {
+                    var rot    = span.dataset.rotate || '0';
+                    var dx     = parseFloat(span.dataset.dx || '0') * progress;
+                    var dy     = parseFloat(span.dataset.dy || '0') * progress;
+                    var baseOp = parseFloat(span.dataset.opacity || '0.15');
+                    span.style.transform = 'rotate('+rot+'deg) translate('+dx+'px,'+dy+'px)';
+                    span.style.opacity   = baseOp * (1 - progress);
+                });
+            }
+
+            // Measure ribbon and compute start/end positions for name
+            var ribbonH      = ribbon.offsetHeight;
+            var startY       = window.innerHeight / 2 - ribbonH / 2;
+            var innerRect    = ribbonInner.getBoundingClientRect();
+            var innerPadLeft = parseFloat(window.getComputedStyle(ribbonInner).paddingLeft);
+            var nameHalfW    = ribbonName.offsetWidth / 2;
+            // Name starts centered in the full viewport, ends at inner left + padding
+            // (left is relative to the ribbon-inner container)
+            var nameStartLeft = (window.innerWidth / 2 - nameHalfW) - innerRect.left;
+            var nameEndLeft   = innerPadLeft;
+
+            // Initialize
+            ribbon.style.top            = '0px';
+            ribbon.style.transform      = 'translateY(' + startY + 'px)';
+            ribbonName.style.left       = nameStartLeft + 'px';
+            ribbonName.style.transform  = 'translateY(-50%)';
+            ribbonLinks.style.transform = 'translateY(-50%) translateX(150px)';
+            ribbonLinks.style.opacity   = '0';
+
+            function applyNavProgress(navP) {
+                // Ribbon rises to top
+                ribbon.style.transform = 'translateY(' + lerp(startY, 0, navP) + 'px)';
+                // Name slides left
+                ribbonName.style.left  = lerp(nameStartLeft, nameEndLeft, navP) + 'px';
+                // Links slide in from right (during second half of nav animation)
+                var linksP = range(0.55, 1, navP);
+                ribbonLinks.style.transform = 'translateY(-50%) translateX(' + lerp(150, 0, linksP) + 'px)';
+                ribbonLinks.style.opacity   = String(linksP);
+                // Hero margin (wide screens only — creates the cream border reveal)
+                var targetMargin = Math.max(0, (window.innerWidth - 1400) / 2);
+                var m = lerp(0, targetMargin, navP) + 'px';
+                hero.style.marginLeft  = m;
+                hero.style.marginRight = m;
+            }
+
+            function applyScatterProgress(p) {
+                // Phase 1: right panel (p 0→0.5) — charcoal → red, words scatter
+                var p1 = range(0, 0.5, p);
+                scatterSpans(rightInit, range(0, 0.65, p1));
+                heroRight.style.backgroundColor = lerpColor(DARK, RED, range(0.3, 0.75, p1));
+                rightTag.style.opacity = range(0.72, 1, p1);
+
+                // Phase 2: left panel (p 0.5→1) — red → charcoal, words scatter
+                var p2 = range(0.5, 1.0, p);
+                scatterSpans(leftInit, range(0, 0.65, p2));
+                heroLeft.style.backgroundColor = lerpColor(RED, DARK, range(0.3, 0.75, p2));
+                leftText.style.opacity = range(0.72, 1, p2);
+            }
+
+            if (window.innerWidth > MOBILE_BP) {
+                // Desktop: scroll-jacked
+                // navP completes at 65% of total scroll (finishes before scatter)
+                // scatterP uses full scroll range
+                window.addEventListener('scroll', function() {
+                    var top   = wrapper.getBoundingClientRect().top;
+                    var total = wrapper.offsetHeight - window.innerHeight;
+                    var p     = clamp(-top / total, 0, 1);
+                    applyNavProgress(clamp(p / 0.65, 0, 1));
+                    applyScatterProgress(p);
+                }, { passive: true });
+            } else {
+                // Mobile: timed load animations
+                function mobileScatter(layerEl, bgEl, toColor, textEl, delay) {
+                    setTimeout(function() {
+                        layerEl.querySelectorAll('span').forEach(function(span) {
+                            span.style.transition = 'transform 0.7s ease, opacity 0.7s ease';
+                        });
+                        bgEl.style.transition = 'background-color 0.7s ease';
+                        bgEl.style.backgroundColor = 'rgb('+toColor.r+','+toColor.g+','+toColor.b+')';
+                        scatterSpans(layerEl, 1);
+                        setTimeout(function() {
+                            textEl.style.transition = 'opacity 0.45s ease';
+                            textEl.style.opacity = '1';
+                        }, 550);
+                    }, delay);
+                }
+
+                setTimeout(function() {
+                    // Ribbon rises first
+                    ribbon.style.transition     = 'transform 0.6s ease';
+                    ribbon.style.transform      = 'translateY(0)';
+                    ribbonName.style.transition = 'left 0.6s ease';
+                    ribbonName.style.left       = nameEndLeft + 'px';
+                    setTimeout(function() {
+                        ribbonLinks.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                        ribbonLinks.style.opacity    = '1';
+                        ribbonLinks.style.transform  = 'translateY(-50%) translateX(0)';
+                    }, 300);
+                    // Word scatter begins after ribbon settles
+                    setTimeout(function() {
+                        mobileScatter(rightInit, heroRight, RED,  rightTag, 0);
+                        mobileScatter(leftInit,  heroLeft,  DARK, leftText, 700);
+                    }, 600);
+                }, 400);
+            }
+        })();
+    </script>
 
     <script>
         // Smooth scroll
@@ -547,18 +751,13 @@
         });
 
         // Intersection Observer for work items
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.2, rootMargin: '0px 0px -100px 0px' });
 
         document.querySelectorAll('.work-item').forEach(item => {
             observer.observe(item);

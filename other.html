@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Other Work — Max Searcy</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -36,7 +38,7 @@
             letter-spacing: -0.02em;
         }
 
-        /* Navigation */
+        /* Navigation — hidden until hover */
         nav {
             position: fixed;
             top: 0;
@@ -46,6 +48,12 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid var(--divider);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        nav.nav-visible {
+            opacity: 1;
         }
 
         .nav-content {
@@ -103,24 +111,24 @@
 
         /* Header */
         .page-header {
-            margin-top: 80px;
-            padding: 6rem 3rem 4rem;
+            margin-top: 0;
+            padding: 5rem 3rem 2rem;
             max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
-            border-bottom: 1px solid var(--divider);
         }
 
         .page-title {
             font-size: 4rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
             color: var(--charcoal);
         }
 
         .page-subtitle {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--slate);
             font-weight: 300;
+            font-style: italic;
             line-height: 1.8;
             max-width: 800px;
         }
@@ -129,12 +137,12 @@
         .content-section {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 3rem;
+            padding: 2.5rem 3rem;
         }
 
         .project-block {
-            margin-bottom: 8rem;
-            padding-bottom: 8rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
             border-bottom: 1px solid var(--divider);
         }
 
@@ -142,26 +150,42 @@
             border-bottom: none;
         }
 
-        .project-header {
-            margin-bottom: 3rem;
+        .section-banner {
+            background: var(--charcoal);
+            padding: 2rem 3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .section-banner h2,
+        .section-banner h3 {
+            color: var(--cream);
+        }
+
+        .section-banner p {
+            color: rgba(248,246,241,0.7);
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1rem;
         }
 
         .project-title {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            color: var(--charcoal);
+            text-wrap: balance;
         }
+
 
         .project-description {
             font-size: 1rem;
-            color: var(--slate);
             font-weight: 300;
             line-height: 1.8;
         }
 
         .project-content {
             display: grid;
-            gap: 3rem;
+            gap: 1.5rem;
         }
 
         .project-embed {
@@ -181,12 +205,51 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.08);
         }
 
+        .project-subblock {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--divider);
+        }
+
+        .project-subblock:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .project-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            text-wrap: balance;
+        }
+
+        .project-subtitle::after {
+            content: '';
+            display: block;
+            width: 1.5rem;
+            height: 2px;
+            background: var(--accent);
+            margin: 0.6rem 0 0;
+        }
+
+        .movie-night-gifs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .movie-night-gifs img {
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--divider);
+        }
+
         /* Footer */
         footer {
             background: var(--charcoal);
             color: var(--cream);
             padding: 4rem 3rem;
-            margin-top: 8rem;
+            margin-top: 4rem;
         }
 
         .footer-content {
@@ -236,6 +299,10 @@
         }
 
         @media (max-width: 768px) {
+            .movie-night-gifs {
+                grid-template-columns: 1fr;
+            }
+
             .nav-content {
                 padding: 1.5rem 2rem;
             }
@@ -269,7 +336,7 @@
             <ul class="nav-links">
                 <li><a href="index.html">Work</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="mailto:mxsearcy@gmail.com">Contact</a></li>
+                <li><a href="mailto:mxsearcy@gmail.com">Email</a></li>
             </ul>
         </div>
     </nav>
@@ -281,19 +348,46 @@
 
     <main class="content-section">
         <section class="project-block">
-            <div class="project-header">
+            <div class="section-banner">
+                <h2 class="project-title">Sites &amp; Apps</h2>
+            </div>
+
+            <section class="project-subblock">
+                <h3 class="project-subtitle">Frontporch</h3>
+                <p class="project-description">Frontporch is a news, DIY, and mutual aid resource aggregator I developed in Winter 2026.</p>
+                <div class="project-content" style="margin-top:1rem;">
+                    <a href="https://frntprch.org" target="_blank">
+                        <img src="images/frntprch.gif" alt="Frontporch website" class="project-image">
+                    </a>
+                </div>
+            </section>
+
+            <section class="project-subblock">
+                <h3 class="project-subtitle">Movie Night</h3>
+                <p class="project-description">A family movie-picking app.</p>
+                <div class="project-content" style="margin-top:1rem;">
+                    <div class="movie-night-gifs">
+                        <img src="images/movienight1.gif" alt="Movie Night app">
+                        <img src="images/movienight2.gif" alt="Movie Night app">
+                        <img src="images/movienight3.gif" alt="Movie Night app">
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section class="project-block">
+            <div class="section-banner">
                 <h2 class="project-title">DHS Forensics</h2>
                 <p class="project-description">As head coach, I designed and wrote everything for the DHS Forensics Team.</p>
             </div>
             <div class="project-content">
-                <embed src="https://pink-lesly-7.tiiny.site#toolbar=0&navpanes=0" class="project-embed">
-                <img src="images/forensics-release.png" alt="Forensics release form" class="project-image">
                 <img src="images/forensics-site.png" alt="Forensics website" class="project-image">
+                <img src="images/forensics-release.png" alt="Forensics release form" class="project-image">
             </div>
         </section>
 
         <section class="project-block">
-            <div class="project-header">
+            <div class="section-banner">
                 <h2 class="project-title">Tattooers</h2>
                 <p class="project-description">I've worked with multiple tattooers to revamp their booking and online presence.</p>
             </div>
@@ -304,7 +398,7 @@
         </section>
 
         <section class="project-block">
-            <div class="project-header">
+            <div class="section-banner">
                 <h2 class="project-title">My Own Class</h2>
                 <p class="project-description">I was a schoolteacher for 5 years, and this was a design I worked on with my wife for my first classroom Welcome Night.</p>
             </div>
@@ -316,9 +410,26 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-cta">Hire me to do something cool for you</div>
+            <div class="footer-cta">Hire me to do something cool for you.</div>
             <a href="mailto:mxsearcy@gmail.com" class="footer-email">mxsearcy@gmail.com</a>
         </div>
     </footer>
+
+    <script>
+        (function() {
+            const nav = document.querySelector('nav');
+            const MOBILE = 768;
+            nav.addEventListener('mouseenter', () => { if (window.innerWidth > MOBILE) nav.classList.add('nav-visible'); });
+            nav.addEventListener('mouseleave', () => { if (window.innerWidth > MOBILE) nav.classList.remove('nav-visible'); });
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth > MOBILE) return;
+                const y = window.scrollY;
+                if (y < lastScrollY) nav.classList.add('nav-visible');
+                else nav.classList.remove('nav-visible');
+                lastScrollY = y;
+            }, { passive: true });
+        })();
+    </script>
 </body>
 </html>
